@@ -1,12 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
-class User(models.Model):
+class User(AbstractUser):
     name = models.CharField(max_length=100)
-    lastname = models.CharField(max_length=100)
-    email = models.CharField(max_length=50)
-    password = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100, unique=True)
+    password = models.CharField(max_length=100)
+    username = None # We don't need username field, but AbstractUser has it by default
 
-    def __str__(self):
-        return self.name
+    USERNAME_FIELD = 'email' #This is to login with email and password
+    REQUIRED_FIELDS = []
+
     
